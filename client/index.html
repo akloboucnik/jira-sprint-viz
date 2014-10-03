@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Title</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
+  <script src="http://builds.emberjs.com/tags/v1.7.0/ember.js"></script>
+</head>
+<body>
+
+  <script src="js/app.js"></script>
+  <script type="text/x-handlebars">
+    <div class="container">
+    <h1>Sprint 9</h1>
+
+    {{outlet}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="index/loading">
+    Loading...
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="index">
+    <ul class="nav nav-pills">
+        <li>
+            <a {{action 'filterUser' null}}>X</a>
+        </li>
+        {{#each p in userMap}}
+            <li {{bind-attr class="p.active"}}><a {{action 'filterUser' p.name}}>{{p.short}}</a></li>
+        {{/each}}
+    </ul>
+    {{#each story in filteredModel}}
+      {{#if story.tasks.length}}
+      <div class="story">
+        <h2>{{story.id}}: {{story.description}}</h2>
+        {{#each subtask in story.tasks}}
+            <div {{bind-attr class=":subtask subtask.cssClass"}}>
+            <div class="avatar">
+                <img {{bind-attr src="subtask.avatarUrl"}}/>
+            </div>
+            <div class="subtask-desc">
+                <a href="https://jira.intgdc.com/browse/{{unbound subtask.id}}">
+                    <strong>{{subtask.description}}</strong> <span class="who">(by {{subtask.name}})</span>
+                </a>
+                <div class="status">{{subtask.status}}</div>
+            </div>
+            </div>
+        {{/each}}
+      </div>
+      {{/if}}
+    {{/each}}
+  </script>
+</body>
+</html>

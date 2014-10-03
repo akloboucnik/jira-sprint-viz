@@ -1,0 +1,41 @@
+.user-filter a {
+    margin-right: 14px;
+}
+
+.story {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.subtask {
+    width: 480px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.subtask .avatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: -3px;
+}
+
+.subtask a {
+    color: #000;
+}
+
+.subtask.done {
+    background-color: #BDDFAA;
+}
+
+.subtask.to-do a {
+    color: #fff;
+}
+
+.subtask.to-do {
+    color: #fff;
+    background-color: #FF4900;
+}
+
+.subtask.in-progress {
+    background-color: #F1D888;
+}
