@@ -41,6 +41,10 @@ App.IndexController = Em.ObjectController.extend({
         }
     }.observes('showOnlyUser'),
 
+    userFilterList: function() {
+        return _.shuffle(this.get('userMap'));
+    }.property('userMap'),
+
     filteredModel: function() {
         var only = this.get('showOnlyUser'),
             model = this.get('model');

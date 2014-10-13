@@ -11,6 +11,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
   <script src="http://builds.emberjs.com/tags/v1.7.0/ember.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
 </head>
 <body>
 
@@ -32,7 +33,7 @@
         <li>
             <a {{action 'filterUser' null}}>X</a>
         </li>
-        {{#each p in userMap}}
+        {{#each p in userFilterList}}
             <li {{bind-attr class="p.active"}}><a {{action 'filterUser' p.name}}>{{p.short}}</a></li>
         {{/each}}
     </ul>
