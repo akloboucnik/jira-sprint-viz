@@ -1,12 +1,57 @@
 App = Ember.Application.create();
 
+var Issue = Em.Object.extend({
+    cssClass: function() {
+        return this.get('status').replace(/ /g, "-").toLowerCase();
+    }.property('status')
+});
+var createModelObjectFromPojo = function(obj) {
+    var parent = (obj.fields.parent) ? obj.fields.parent['key'] : null;
+    return Issue.create({
+        id: obj.key,
+        raw: obj,
+        description: obj.fields.summary,
+        name: obj.fields.assignee.name, // change to assignee
+        avatarUrl: '/avatar/' + obj.fields.assignee.name,
+        status: obj.fields.status.name,
+        parent: parent,
+        tasks: []
+    });
+};
+
+var createModelTree = function(data) {
+    var parents = data.issues.filter(function(issue) {
+        return !issue.fields.parent;
+    }).map(createModelObjectFromPojo);
+
+    var children = data.issues.filter(function(issue) {
+        return issue.fields.parent;
+    }).map(createModelObjectFromPojo);
+
+    // create a tree
+    // TODO refactor
+    children.forEach(function(child) {
+        var parent = parents.findBy('id', child.get('parent'));
+        parent.get('tasks').pushObject(child);
+    });
+
+    return parents;
+};
+
 App.Router.map(function() {
   // put your routes here
 });
 
 App.IndexRoute = Ember.Route.extend({
   model: function() {
-    return $.getJSON('/issues.json');
+    return new Em.RSVP.Promise(function(resolve, reject) {
+        $.getJSON('/issues.json').then(function(data) {
+            var tree = createModelTree(data);
+            resolve(tree);
+        }, function(err) {
+            reject(err);
+        });
+    });
   }
 });
 
@@ -45,6 +90,7 @@ App.IndexController = Em.ObjectController.extend({
         return _.shuffle(this.get('userMap'));
     }.property('userMap'),
 
+    // TODO fix filtering
     filteredModel: function() {
         var only = this.get('showOnlyUser'),
             model = this.get('model');
