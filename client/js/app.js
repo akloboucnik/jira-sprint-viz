@@ -87,7 +87,10 @@ App.IndexController = Em.ObjectController.extend({
     }.observes('showOnlyUser'),
 
     userFilterList: function() {
-        return _.shuffle(this.get('userMap'));
+        var d = new Date();
+        d.setHours(0,0,0,0);
+        var c = new Chance(+d);
+        return c.shuffle(this.get('userMap'));
     }.property('userMap'),
 
     // TODO fix filtering
