@@ -38,10 +38,10 @@
         {{/each}}
     </ul>
     {{#each story in filteredModel}}
-      {{#if story.tasks.length}}
+      {{#if story.filteredSubtasks.length}}
       <div class="story">
         <h2>{{story.id}}: {{story.description}}</h2>
-        {{#each subtask in story.tasks}}
+        {{#each subtask in story.filteredSubtasks}}
             <div {{bind-attr class=":subtask subtask.cssClass"}}>
             <div class="avatar">
                 <img {{bind-attr src="subtask.avatarUrl"}}/>

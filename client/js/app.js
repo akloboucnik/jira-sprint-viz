@@ -3,7 +3,26 @@ App = Ember.Application.create();
 var Issue = Em.Object.extend({
     cssClass: function() {
         return this.get('status').replace(/ /g, "-").toLowerCase();
-    }.property('status')
+    }.property('status'),
+
+    hasSubtasksOfUser: function(user) {
+        if (!this.get('tasks.length')) return false;
+
+        return !!this.get('tasks').filter(function(task) {
+            return task.get('name') === user;
+        }).length;
+    },
+
+    filteredSubtasks: function() {
+        var only = this.get('showOnlySubtasks'),
+            tasks = this.get('tasks');
+
+        if (!only || Em.empty(tasks)) return tasks;
+
+        return tasks.filter(function(task) {
+            return task.get('name') === only;
+        });
+    }.property('showOnlySubtasks')
 });
 
 var mapStatusName = function(statusName) {
@@ -115,22 +134,25 @@ App.IndexController = Em.ObjectController.extend({
         return c.shuffle(this.get('userMap'));
     }.property('userMap'),
 
-    // TODO fix filtering
     filteredModel: function() {
         var only = this.get('showOnlyUser'),
             model = this.get('model');
-        if (!only) return model;
 
-        model = model.map(function(story) { return Em.Object.create(story); });
+        if (!only) {
+            model.map(function(story) { story.set('showOnlySubtasks', null); });
+            return model;
+        }
 
-        model.forEach(function(story) {
-            var userTasks = story.tasks.filter(function(task) {
-                return task.name === only;
-            });
-            story.set('tasks', userTasks);
+        return model.filter(function(story) {
+            // display story if:
+            //   * has no subtasks and is users
+            //   * has some subtasks of user
+            return story.get('tasks.length') && story.hasSubtasksOfUser(only) ||
+                   story.get('name') === only;
+        }).map(function(story) {
+            story.set('showOnlySubtasks', only);
+            return story;
         });
-
-        return model;
     }.property('model', 'showOnlyUser')
 });
 
