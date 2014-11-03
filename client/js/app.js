@@ -5,6 +5,27 @@ var Issue = Em.Object.extend({
         return this.get('status').replace(/ /g, "-").toLowerCase();
     }.property('status')
 });
+
+var mapStatusName = function(statusName) {
+    switch (statusName) {
+        case 'Completed':
+            return 'Done';
+            break;
+        case 'Hacking':
+            return 'In Progress';
+            break;
+        case 'Backlog':
+            return 'To Do';
+            break;
+        case 'Verification':
+            return 'In Progress';
+            break;
+        default:
+            return statusName;
+            break;
+    }
+};
+
 var createModelObjectFromPojo = function(obj) {
     var parent = (obj.fields.parent) ? obj.fields.parent['key'] : null;
     return Issue.create({
@@ -13,11 +34,12 @@ var createModelObjectFromPojo = function(obj) {
         description: obj.fields.summary,
         name: obj.fields.assignee.name, // change to assignee
         avatarUrl: '/avatar/' + obj.fields.assignee.name,
-        status: obj.fields.status.name,
+        status: mapStatusName(obj.fields.status.name),
         parent: parent,
         tasks: []
     });
 };
+
 
 var createModelTree = function(data) {
     var parents = data.issues.filter(function(issue) {

@@ -18,7 +18,7 @@
   <script src="js/app.js"></script>
   <script type="text/x-handlebars">
     <div class="container">
-    <h1>Sprint 10</h1>
+    <h1>Sprint 11</h1>
 
     {{outlet}}
     </div>
@@ -54,6 +54,13 @@
             </div>
             </div>
         {{/each}}
+      </div>
+      {{else}}
+      <div {{bind-attr class=":story story.cssClass"}}>
+        <div class="avatar">
+            <img {{bind-attr src="story.avatarUrl"}}/>
+        </div>
+        <h2>{{story.id}}: {{story.description}}</h2>
       </div>
       {{/if}}
     {{/each}}

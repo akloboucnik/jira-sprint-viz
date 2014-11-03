@@ -7,13 +7,18 @@
     margin-bottom: 20px;
 }
 
+.story h2 {
+    font-weight: 200;
+    font-size: 1.5em;
+}
+
 .subtask {
     width: 480px;
     margin: 10px;
     padding: 10px;
 }
 
-.subtask .avatar {
+.avatar {
     float: left;
     margin-right: 10px;
     margin-top: -3px;
@@ -23,19 +28,19 @@
     color: #000;
 }
 
-.subtask.done {
+.done {
     background-color: #BDDFAA;
 }
 
-.subtask.to-do a {
+.to-do a {
     color: #fff;
 }
 
-.subtask.to-do {
+.to-do {
     color: #fff;
     background-color: #FF4900;
 }
 
-.subtask.in-progress {
+.in-progress {
     background-color: #F1D888;
 }
