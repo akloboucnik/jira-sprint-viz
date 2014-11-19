@@ -50,6 +50,6 @@ var jira = new JiraApi('https', config.host, config.port, config.user, config.pa
 
 var getFullJiraJson = function(sprintId, callback) {
     // TODO add dates
-    jira.searchJira('sprint='+SPRINT_ID, { maxResults: 100, fields: ['summary', 'status', 'issuetype', 'assignee', 'parent', 'update'] }, callback);
+    jira.searchJira('sprint='+SPRINT_ID, { maxResults: 100, fields: ['summary', 'status', 'resolution', 'issuetype', 'assignee', 'parent', 'update'] }, callback);
 };
 

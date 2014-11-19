@@ -15,7 +15,9 @@ var Issue = Em.Object.extend({
 
     filteredSubtasks: function() {
         var only = this.get('showOnlySubtasks'),
-            tasks = this.get('tasks');
+            tasks = this.get('tasks').filter(function(t) {
+                return t.resolution !== 'invalid';
+            });
 
         if (!only || Em.empty(tasks)) return tasks;
 
@@ -46,7 +48,8 @@ var mapStatusName = function(statusName) {
 };
 
 var createModelObjectFromPojo = function(obj) {
-    var parent = (obj.fields.parent) ? obj.fields.parent['key'] : null;
+    var parent = (obj.fields.parent) ? obj.fields.parent['key'] : null,
+        res = (obj.fields.resolution) ? obj.fields.resolution.name.toLowerCase() : null;
     return Issue.create({
         id: obj.key,
         raw: obj,
@@ -54,6 +57,7 @@ var createModelObjectFromPojo = function(obj) {
         name: obj.fields.assignee.name, // change to assignee
         avatarUrl: '/avatar/' + obj.fields.assignee.name,
         status: mapStatusName(obj.fields.status.name),
+        resolution: res,
         parent: parent,
         tasks: []
     });
