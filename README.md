@@ -8,7 +8,7 @@
 ## Install & run
 
 * run `npm install` in the root of the clone
-* fill in variables in `server.js` on lines `9,13,14`
-* run `npm start`
+* update your credentials in `.jirarc` file on lines `6,7`
+* run `npm start <<jira sprind id>>`, example `npm start 171`
 * navigate your browser to `localhost:3000/#/`
 
