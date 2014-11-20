@@ -5,16 +5,15 @@ var async = require('async');
 var serveStatic = require('serve-static');
 var serve = serveStatic('client');
 var request = require('request');
+var fs = require('fs');
+var config = (JSON.parse(fs.readFileSync('.jirarc', 'utf8')));
 
-var SPRINT_ID = "<sprint id>",
-    config = {
-        host: "jira.intgdc.com",
-        port: null,
-        user: '<freeipa.user>',
-        password: '<freeipa.password>',
-        strictSSL: false,
-        verbose: true
-    };
+var SPRINT_ID = parseInt(process.argv.slice(2).pop(), 10);
+
+if (!SPRINT_ID) {
+    console.error('Missing sprint ID! Run example: npm start 171');
+    return false;
+}
 
 app.use(serve);
 

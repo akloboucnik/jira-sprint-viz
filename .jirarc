@@ -1,0 +1,8 @@
+{
+    "host": "jira.intgdc.com",
+    "port": null,
+    "strictSSL": false,
+    "verbose": true,
+    "user": "<<FREE IPA USERNAME>>",
+    "password": "<<FREE IPA PASSWORD>>"
+}
