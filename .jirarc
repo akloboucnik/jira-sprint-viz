@@ -4,5 +4,6 @@
     "strictSSL": false,
     "verbose": true,
     "user": "<<FREE IPA USERNAME>>",
-    "password": "<<FREE IPA PASSWORD>>"
+    "password": "<<FREE IPA USERNAME>>",
+    "sprintId": "<<JIRA SPRINT ID>>"
 }

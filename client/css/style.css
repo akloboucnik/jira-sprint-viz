@@ -1,46 +1,36 @@
 .user-filter a {
-    margin-right: 14px;
-}
+  margin-right: 14px; }
 
 .story {
-    padding: 10px;
-    margin-bottom: 20px;
-}
+  padding: 10px;
+  margin-bottom: 20px; }
 
 .story h2 {
-    font-weight: 200;
-    font-size: 1.5em;
-}
+  font-weight: 200;
+  font-size: 1.5em; }
 
 .subtask {
-    width: 480px;
-    margin: 10px;
-    padding: 10px;
-}
+  width: 480px;
+  margin: 10px;
+  padding: 10px; }
 
 .avatar {
-    float: left;
-    margin-right: 10px;
-    margin-top: -3px;
-}
+  float: left;
+  margin-right: 10px;
+  margin-top: -3px; }
 
 .subtask a {
-    color: #000;
-}
+  color: #000; }
 
 .done {
-    background-color: #BDDFAA;
-}
+  background-color: #BDDFAA; }
 
 .to-do a {
-    color: #fff;
-}
+  color: #fff; }
 
 .to-do {
-    color: #fff;
-    background-color: #FF4900;
-}
+  color: #fff;
+  background-color: #FF4900; }
 
 .in-progress {
-    background-color: #F1D888;
-}
+  background-color: #F1D888; }

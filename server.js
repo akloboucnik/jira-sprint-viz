@@ -1,16 +1,14 @@
-var express = require('express');
-var app = express();
-var JiraApi = require('jira').JiraApi;
-var async = require('async');
-var serveStatic = require('serve-static');
-var serve = serveStatic('client');
-var request = require('request');
-var fs = require('fs');
-var config = (JSON.parse(fs.readFileSync('.jirarc', 'utf8')));
+var express     = require('express'),
+    app         = express(),
+    JiraApi     = require('jira').JiraApi,
+    async       = require('async'),
+    serveStatic = require('serve-static'),
+    serve       = serveStatic('client'),
+    request     = require('request'),
+    fs          = require('fs'),
+    config      = (JSON.parse(fs.readFileSync('.jirarc', 'utf8')));
 
-var SPRINT_ID = parseInt(process.argv.slice(2).pop(), 10);
-
-if (!SPRINT_ID) {
+if (!config.sprintId) {
     console.error('Missing sprint ID! Run example: npm start 171');
     return false;
 }
@@ -32,7 +30,7 @@ app.get('/avatar/:user', function(req, res) {
 });
 
 app.get('/issues.json', function(req, res){
-    getFullJiraJson(SPRINT_ID, function(err, data) {
+    getFullJiraJson(config.sprintId, function(err, data) {
         if (err) {
             res.status(400);
         } else {
@@ -49,6 +47,6 @@ var jira = new JiraApi('https', config.host, config.port, config.user, config.pa
 
 var getFullJiraJson = function(sprintId, callback) {
     // TODO add dates
-    jira.searchJira('sprint='+SPRINT_ID, { maxResults: 100, fields: ['summary', 'status', 'resolution', 'issuetype', 'assignee', 'parent', 'update'] }, callback);
+    jira.searchJira('sprint='+config.sprintId, { maxResults: 100, fields: ['summary', 'status', 'resolution', 'issuetype', 'assignee', 'parent', 'update'] }, callback);
 };
 
