@@ -16,7 +16,8 @@ var Issue = Em.Object.extend({
     filteredSubtasks: function() {
         var only = this.get('showOnlySubtasks'),
             tasks = this.get('tasks').filter(function(t) {
-                return t.resolution !== 'invalid';
+                return t.status !== 'Done' ||
+                       t.resolution !== 'invalid';
             });
 
         if (!only || Em.empty(tasks)) return tasks;
