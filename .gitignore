@@ -1,3 +1,6 @@
+# Credentials
+.jirarc
+
 # Logs
 logs
 *.log
